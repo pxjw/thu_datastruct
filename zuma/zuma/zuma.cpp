@@ -20,11 +20,75 @@
 如果轨道上已没有珠子，则以“-”表示。
 */
 #include "stdafx.h"
-#include<iostream>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cmath>
+#include <stdlib.h>
+#include <stdio.h>
+using namespace std;
+string translation(string a){
+	int size = a.size();
+	//小于3则不消除
+	if (size < 3)
+		return a;
+	int i = 2;
+	while (i < size){
+		if ((a[i - 2] == a[i - 1] && (a[i - 1] == a[i]))){
+			int j = i;
+			while ((j + 1) < size){
+				j = j + 1;
+				if (a[j - 1 != a[j]])
+					break;
+			}
+			int count;
+			if (i == j)
+				count = 3;
+			else if (a[i - 1] == a[j])
+				count = j - i + 3;
+			else
+				count = j - i + 2;
+			a = a.erase(i - 2, count);
+			size = a.size();
+			if (size < 3)
+				return a;
+			i -= 2;
+			if (i < 2)
+				i = 2;
+		}
+		else
+			i++;
+	}
+	return a;
+}
+int main(){
+	int oper;
+	string zuma;//输入串,珠子序列
 
+	getline(cin, zuma);
+	int size = zuma.size();
 
-//int _tmain(int argc, _TCHAR* argv[])
-//{
-//	return 0;
-//}
+	cin >> oper;
+	int *po;
+	char *bead;
+	//calloc()函数有两个参数,分别为元素的数目和每个元素的大小,
+	po = (int*)calloc(oper, sizeof(int));
+	bead = (char*)calloc(oper, sizeof(char));
+
+	for (int i = 0; i < oper; i++){
+		cin >> po[i];
+		cin >> bead[i];
+	}
+
+	for (int i = 0; i < oper; i++){
+		zuma.insert(po[i], 1,bead[i]);
+		//将序列内容插入，并运算是否消除并输出
+		zuma = translation(zuma);
+		if (zuma == "")
+			cout << "-" << endl;
+		else
+			cout << zuma << endl;
+		}
+
+}
 
